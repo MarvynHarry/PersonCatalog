@@ -1,0 +1,31 @@
+﻿version: '3.8'
+
+services:
+  personcatalog-db:
+    image: mysql:8.0
+    container_name: personcatalog-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: PersonCatalogDb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3307:3306" # Make sure this doesn't conflict with other services
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  personcatalog-api:
+    build:
+      context: .
+      dockerfile: PersonCatalog.API/Dockerfile
+    container_name: personcatalog-api
+    ports:
+      - "5000:8080" # Map port 8080 in the container to port 5000 on your machine
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: "Server=personcatalog-db;Port=3306;Database=PersonCatalogDb;User=user;Password=userpassword;"
+    depends_on:
+      - personcatalog-db
+
+volumes:
+  dbdata:

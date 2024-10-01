@@ -1,0 +1,2 @@
+# PersonCatalog
+ Este proyecto es un sistema de gestión de personas construido con .NET y Entity Framework Core. Utiliza MediatR para implementar un patrón CQRS (Command Query Responsibility Segregation), lo que permite separar las operaciones de consulta y comando. El sistema permite crear, actualizar, eliminar y listar personas, garantizando la integridad de datos como el email, evitando duplicados. Está diseñado para ser modular y escalable, con una arquitectura limpia que facilita su mantenimiento y extensión.
